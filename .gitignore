@@ -1,0 +1,16 @@
+**/__pycache__
+*.pyc
+.vs
+.idea
+
+# VsCode related settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+# Ignore all local history of files
+**/.history
+
+**/.DB_Store
+**/.DS_Store
