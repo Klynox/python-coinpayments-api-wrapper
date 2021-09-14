@@ -1,20 +1,22 @@
 import os
+import urllib.request
+import urllib.parse
+import urllib.error
+import urllib.request
+import urllib.error
+import urllib.parse
 import hmac
 import hashlib
-import urllib.parse
 import json
 
-import requests
-
-from .errors import (MissingAuthKeyError,
-                     InvalidMethodError, ImproperlyConfigured)
+from errors import (MissingAuthKeyError, ImproperlyConfigured)
 
 
 class ApiConfig:
     """
     API configuration for the coinpayments SDK
     """
-    _CONTENT_TYPE = "application/json"
+    _CONTENT_TYPE = "application/x-www-form-urlencoded"
     _API_END_POINT = "https://www.coinpayments.net/api.php"
 
     def __init__(self, private_key=None, public_key=None, ipn_url=None):
@@ -65,38 +67,29 @@ class ApiConfig:
             encoded, hashlib.sha512).hexdigest()
 
     def _parse_json(self, response_obj):
-        parsed_response = response_obj.json()
-        print(parsed_response)
-        return response_obj.status_code, parsed_response
+        response_body = response_obj.read()
+        response_body_decoded = json.loads(
+            response_body)
+        response_body_decoded.update(response_body_decoded['result'])
+        response_body_decoded.pop('result', None)
+        return response_body_decoded
 
     def _handle_request(self, method, url, data=None):
         """
         Generic function to handle all API url calls
         Returns a python tuple of status code, status(bool), message, data
         """
-        method_map = {
-            'GET': requests.get,
-            'POST': requests.post,
-            'PUT': requests.put,
-            'DELETE': requests.delete
-        }
-
-        payload = json.dumps(data) if data else data
         encoded, sig = self.create_hmac(**data)
         self.request_headers['hmac'] = sig
-        request = method_map.get(method)
+        req = urllib.request.Request(
+            url, data=encoded, headers=self.request_headers)
 
-        if not request:
-            raise InvalidMethodError(
-                "Request method not recognised or implemented")
-
-        response = request(url, headers=self.request_headers,
-                           data=payload, verify=True)
-        if response.status_code == 404:
-            return response.status_code, "The object request cannot be found"
-
-        if response.status_code in [200, 201]:
-            return self._parse_json(response)
-        else:
-            # body = response.json()
-            return response.status_code, "Real error"
+        try:
+            response = urllib.request.urlopen(req)
+            response_body_decoded = self._parse_json(response)
+        except urllib.error.HTTPError as e:
+            response_body = e.read()
+            response_body_decoded = json.loads(
+                response_body)
+            return response_body_decoded
+        return response_body_decoded
