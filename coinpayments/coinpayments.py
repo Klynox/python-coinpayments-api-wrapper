@@ -1,4 +1,4 @@
-from .apiConfig import ApiConfig
+from coinpayments.apiConfig import ApiConfig
 
 
 class CoinPayments(ApiConfig):
@@ -12,6 +12,8 @@ class CoinPayments(ApiConfig):
         if self.ipn_url:
             params.update({'ipn_url': self.ipn_url})
         params.update({'cmd': 'create_transaction',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -24,6 +26,8 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'get_basic_info',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -36,6 +40,8 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'rates',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -48,6 +54,8 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'balances',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -60,6 +68,8 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'get_deposit_address',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -74,6 +84,8 @@ class CoinPayments(ApiConfig):
         if self.ipn_url:
             params.update({'ipn_url': self.ipn_url})
         params.update({'cmd': 'get_callback_address',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -88,6 +100,8 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'create_transfer',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -101,6 +115,8 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'create_withdrawal',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -113,6 +129,7 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'convert',
+                       'version': 1,
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -125,6 +142,8 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'get_withdrawal_history',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -137,6 +156,8 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'get_withdrawal_info',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -149,6 +170,22 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'get_conversion_info',
+                       'version': 1,
+                       'format': 'json',
+                       'key': self.COINPAYMENTS_PUBLIC_KEY})
+        url = self._url('')
+        return self._handle_request('POST', url, params)
+
+    def get_tx_info(self, params=None):
+        """
+        Get single tx info
+        https://www.coinpayments.net/apidoc-get-tx-info
+        """
+        if params is None:
+            params = {}
+        params.update({'cmd': 'get_tx_info',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
@@ -161,6 +198,8 @@ class CoinPayments(ApiConfig):
         if params is None:
             params = {}
         params.update({'cmd': 'get_tx_info_multi',
+                       'version': 1,
+                       'format': 'json',
                        'key': self.COINPAYMENTS_PUBLIC_KEY})
         url = self._url('')
         return self._handle_request('POST', url, params)
