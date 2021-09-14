@@ -9,7 +9,7 @@ import hmac
 import hashlib
 import json
 
-from errors import (MissingAuthKeyError, ImproperlyConfigured)
+from coinpayments.errors import (MissingAuthKeyError, ImproperlyConfigured)
 
 
 class ApiConfig:

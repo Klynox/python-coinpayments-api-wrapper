@@ -1,4 +1,4 @@
-from apiConfig import ApiConfig
+from coinpayments.apiConfig import ApiConfig
 
 
 class CoinPayments(ApiConfig):
