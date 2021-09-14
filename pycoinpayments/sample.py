@@ -1,4 +1,4 @@
-from coinpayments import CoinPayments
+from pycoinpayments.coinpayments import CoinPayments
 
 create_transaction_params = {
     'amount': 10,

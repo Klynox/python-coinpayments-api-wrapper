@@ -1,4 +1,4 @@
-from coinpayments.apiConfig import ApiConfig
+from pycoinpayments.apiConfig import ApiConfig
 
 
 class CoinPayments(ApiConfig):
