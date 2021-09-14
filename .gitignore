@@ -14,3 +14,7 @@
 
 **/.DB_Store
 **/.DS_Store
+
+# Generated files/dirs
+dist
+*.egg-info/
