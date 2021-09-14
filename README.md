@@ -21,7 +21,7 @@ You can take a look at the `sample.py` file provided in the repo.
 
 A basic usage would be:
 ```python
-from pycoinpayments.coinpayments import CoinPayments
+from pycoinpayments import CoinPayments
 
 create_transaction_params = {
     'amount': 10,
